@@ -22,10 +22,9 @@
             background: #b80000 url('4770.jpg') no-repeat center center fixed;
             background-size: cover;
             color: #fff;
-            cursor: none; /* Hide mouse cursor for TV */
         }
         .container {
-            width: 100vw;
+            width: 100%;
             height: 100vh;
             max-width: 100vw;
             max-height: 100vh;
@@ -69,6 +68,10 @@
             text-align: center;
             background: transparent;
             text-shadow: 1px 1px 6px #a00, 0 0 6px #000;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            position: relative;
         }
         th {
             background: transparent;
@@ -102,129 +105,338 @@
             letter-spacing: 2px;
             text-shadow: 1px 1px 6px #a00, 0 0 6px #000;
         }
+        .floating-controls {
+            position: fixed;
+            z-index: 10;
+            transition: opacity 0.3s;
+            opacity: 0;
+            pointer-events: none;
+        }
+        .show-controls .floating-controls {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        #fullscreen-btn {
+            top: 16px;
+            right: 16px;
+            font-size: 1.2em;
+            padding: 8px 18px 8px 38px;
+            border-radius: 8px;
+            border: none;
+            background: #ffe082;
+            color: #b80000;
+            font-weight: bold;
+            box-shadow: 0 2px 8px #0008;
+            cursor: pointer;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'20\' height=\'20\'><rect x=\'2\' y=\'2\' width=\'16\' height=\'16\' fill=\'none\' stroke=\'%23b80000\' stroke-width=\'2\'/></svg>');
+            background-repeat: no-repeat;
+            background-position: 10px center;
+        }
+        #add-row-btn {
+            margin-top: 18px;
+            font-size: 1em;
+            padding: 8px 18px;
+            border-radius: 8px;
+            border: none;
+            background: #ffe082;
+            color: #b80000;
+            font-weight: bold;
+            box-shadow: 0 2px 8px #0004;
+            cursor: pointer;
+        }
+        #gold-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: clamp(1em, 3vw, 2.5em);
+            background: transparent;
+            table-layout: fixed;
+        }
+        #gold-tbody {
+            display: block;
+            width: 100%;
+            max-height: 60vh;
+            overflow-y: auto;
+        }
+        #gold-table thead, #gold-table tbody tr {
+            display: table;
+            width: 100%;
+            table-layout: fixed;
+        }
+        .btn-del {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+            font-size:1.2em;
+            padding:2px 10px;
+            border-radius:6px;
+            border:none;
+            background:#b80000;
+            color:#fffbe7;
+            cursor:pointer;
+        }
+        tr:hover .btn-del, tr:focus-within .btn-del {
+            opacity: 1;
+            pointer-events: auto;
+        }
         @media (max-width: 700px) {
             h1 { font-size: 2em; }
             table { font-size: 1em; }
             .container { max-width: 99vw; }
         }
+        /* Multi-column gold list */
+        #gold-multicolumn {
+            columns: 2;
+            column-gap: 32px;
+            width: 100%;
+            max-height: 60vh;
+            margin: 0 auto;
+            padding: 0;
+            list-style: none;
+        }
+        @media (min-width: 1200px) {
+            #gold-multicolumn {
+                columns: 3;
+            }
+        }
+        @media (min-width: 1800px) {
+            #gold-multicolumn {
+                columns: 4;
+            }
+        }
+        .gold-row-multi {
+            display: flex;
+            align-items: center;
+            border: 2px solid #fffbe7;
+            border-radius: 10px;
+            margin-bottom: 12px;
+            background: rgba(0,0,0,0.05);
+            padding: 0 8px;
+            break-inside: avoid;
+            position: relative;
+        }
+        .gold-row-multi .gold-type,
+        .gold-row-multi .editable {
+            flex: 1 1 0;
+            min-width: 0;
+            padding: 12px 6px;
+            text-align: center;
+            background: transparent;
+            color: #fffbe7;
+            font-size: 1em;
+            border: none;
+            outline: none;
+        }
+        .gold-row-multi .gold-type {
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+        .gold-row-multi .btn-del {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+            font-size:1.2em;
+            padding:2px 10px;
+            border-radius:6px;
+            border:none;
+            background:#b80000;
+            color:#fffbe7;
+            cursor:pointer;
+        }
+        .gold-row-multi:hover .btn-del, .gold-row-multi:focus-within .btn-del {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        /* Responsive table font-size and padding based on row count */
+        .dynamic-table-size th, .dynamic-table-size td {
+            padding-top: var(--row-padding, 16px);
+            padding-bottom: var(--row-padding, 16px);
+        }
     </style>
 </head>
 <body>
+    <div class="floating-controls">
+        <button id="fullscreen-btn">Full màn hình</button>
+    </div>
     <div class="container">
         <h1>TIỆM VÀNG KIM TƯƠI</h1>
         <div class="update-date" id="update-date">Cập nhật vào: <span id="date-span"></span></div>
-        <table>
-            <tr>
-                <th style="width:33%">LOẠI VÀNG<br><span style="font-size:0.7em;font-weight:normal;">ĐVT: VNĐ/chỉ</span></th>
-                <th style="width:33%">MUA VÀO</th>
-                <th style="width:33%">BÁN RA</th>
-            </tr>
-            <tr>
-                <td class="gold-type">NHẪN VÀNG 995</td>
-                <td class="editable" contenteditable="true" data-key="muavao_995"></td>
-                <td class="editable" contenteditable="true" data-key="banra_995"></td>
-            </tr>
-            <tr>
-                <td class="gold-type">NỮ TRANG 990</td>
-                <td class="editable" contenteditable="true" data-key="muavao_990"></td>
-                <td class="editable" contenteditable="true" data-key="banra_990"></td>
-            </tr>
-            <tr>
-                <td class="gold-type">NỮ TRANG 980</td>
-                <td class="editable" contenteditable="true" data-key="muavao_980"></td>
-                <td class="editable" contenteditable="true" data-key="banra_980"></td>
-            </tr>
-            <tr>
-                <td class="gold-type">TRANG SỨC 710</td>
-                <td class="editable" contenteditable="true" data-key="muavao_710"></td>
-                <td class="editable" contenteditable="true" data-key="banra_710"></td>
-            </tr>
-            <tr>
-                <td class="gold-type">TRANG SỨC 610</td>
-                <td class="editable" contenteditable="true" data-key="muavao_610"></td>
-                <td class="editable" contenteditable="true" data-key="banra_610"></td>
-            </tr>
+        <table id="gold-table">
+            <thead>
+                <tr>
+                    <th style="width:33%">LOẠI VÀNG<br><span style="font-size:0.7em;font-weight:normal;">ĐVT: VNĐ/chỉ</span></th>
+                    <th style="width:33%">MUA VÀO</th>
+                    <th style="width:33%">BÁN RA</th>
+                </tr>
+            </thead>
+            <tbody id="gold-tbody">
+            </tbody>
         </table>
+        <ul id="gold-multicolumn"></ul>
+        <button id="add-row-btn" class="floating-controls">Thêm loại vàng</button>
         <div class="footer">RẤT HÂN HẠNH ĐƯỢC PHỤC VỤ QUÝ KHÁCH</div>
     </div>
     <script>
-        // Default prices (as in your image)
-        const defaultPrices = {
-            muavao_995: '10,500,000',
-            banra_995: '10,640,000',
-            muavao_990: '10,400,000',
-            banra_990: '10,640,000',
-            muavao_980: '10,300,000',
-            banra_980: '10,550,000',
-            muavao_710: '7,420,000',
-            banra_710: '7,770,000',
-            muavao_610: '6,350,000',
-            banra_610: '6,750,000',
-        };
+        // --- Dynamic Gold Types & Prices ---
+        const defaultGolds = [
+            {name: 'NHẪN VÀNG 995', muavao: '10,500,000', banra: '10,640,000'},
+            {name: 'NỮ TRANG 990', muavao: '10,400,000', banra: '10,640,000'},
+            {name: 'NỮ TRANG 980', muavao: '10,300,000', banra: '10,550,000'},
+            {name: 'TRANG SỨC 710', muavao: '7,420,000', banra: '7,770,000'},
+            {name: 'TRANG SỨC 610', muavao: '6,350,000', banra: '6,750,000'},
+        ];
 
-        // Load prices from localStorage or use default
-        function loadPrices() {
-            let prices = {};
+        function loadGolds() {
             try {
-                prices = JSON.parse(localStorage.getItem('goldPrices')) || {};
-            } catch (e) {}
-            for (const key in defaultPrices) {
-                if (!prices[key]) prices[key] = defaultPrices[key];
-            }
-            return prices;
+                const g = JSON.parse(localStorage.getItem('goldTypes'));
+                if (Array.isArray(g) && g.length) return g;
+            } catch(e){}
+            return JSON.parse(JSON.stringify(defaultGolds));
         }
-
-        // Save prices to localStorage
-        function savePrices(prices) {
-            localStorage.setItem('goldPrices', JSON.stringify(prices));
+        function saveGolds(golds) {
+            localStorage.setItem('goldTypes', JSON.stringify(golds));
         }
-
-        // Format number with commas
         function formatNumber(str) {
             let num = str.replace(/[^\d]/g, '');
             if (!num) return '';
             return parseInt(num, 10).toLocaleString('en-US');
         }
-
-        // Update date in real time
-        function updateDate() {
-            const today = new Date();
-            const dateStr = today.toLocaleDateString('vi-VN');
-            const pad = n => n.toString().padStart(2, '0');
-            const timeStr = pad(today.getHours()) + ':' + pad(today.getMinutes()) + ':' + pad(today.getSeconds());
-            document.getElementById('date-span').textContent = dateStr + ' ' + timeStr;
-        }
-
-        // Set up editable cells
-        document.addEventListener('DOMContentLoaded', function() {
-            // Set update date and keep it synced
-            updateDate();
-            setInterval(updateDate, 1000); // update every second
-
-            let prices = loadPrices();
-            document.querySelectorAll('.editable').forEach(cell => {
-                const key = cell.getAttribute('data-key');
-                cell.textContent = prices[key] || '';
-                cell.addEventListener('input', function() {
-                    // Format as user types
-                    let formatted = formatNumber(cell.textContent);
-                    cell.textContent = formatted;
-                    prices[key] = formatted;
-                    savePrices(prices);
+        function renderTable() {
+            const tbody = document.getElementById('gold-tbody');
+            tbody.innerHTML = '';
+            golds.forEach((row, idx) => {
+                const tr = document.createElement('tr');
+                // Tên loại vàng (editable)
+                const tdName = document.createElement('td');
+                tdName.className = 'gold-type';
+                tdName.contentEditable = true;
+                tdName.textContent = row.name;
+                tdName.addEventListener('input', function() {
+                    golds[idx].name = tdName.textContent.trim();
+                    saveGolds(golds);
+                });
+                tr.appendChild(tdName);
+                // Mua vào (editable)
+                const tdMua = document.createElement('td');
+                tdMua.className = 'editable';
+                tdMua.contentEditable = true;
+                tdMua.textContent = row.muavao;
+                tdMua.addEventListener('input', function() {
+                    let formatted = formatNumber(tdMua.textContent);
+                    tdMua.textContent = formatted;
+                    golds[idx].muavao = formatted;
+                    saveGolds(golds);
                     // Move caret to end
                     let range = document.createRange();
                     let sel = window.getSelection();
-                    range.selectNodeContents(cell);
+                    range.selectNodeContents(tdMua);
                     range.collapse(false);
                     sel.removeAllRanges();
                     sel.addRange(range);
                 });
-                // Prevent line breaks
-                cell.addEventListener('keydown', function(e) {
-                    if (e.key === 'Enter') e.preventDefault();
+                tdMua.addEventListener('keydown', function(e) { if (e.key === 'Enter') e.preventDefault(); });
+                tr.appendChild(tdMua);
+                // Bán ra (editable) + nút xóa
+                const tdBan = document.createElement('td');
+                tdBan.className = 'editable';
+                tdBan.contentEditable = true;
+                tdBan.textContent = row.banra;
+                tdBan.addEventListener('input', function() {
+                    let formatted = formatNumber(tdBan.textContent);
+                    tdBan.textContent = formatted;
+                    golds[idx].banra = formatted;
+                    saveGolds(golds);
+                    // Move caret to end
+                    let range = document.createRange();
+                    let sel = window.getSelection();
+                    range.selectNodeContents(tdBan);
+                    range.collapse(false);
+                    sel.removeAllRanges();
+                    sel.addRange(range);
                 });
+                tdBan.addEventListener('keydown', function(e) { if (e.key === 'Enter') e.preventDefault(); });
+                // Nút xóa chỉ hiện khi hover
+                const btnDel = document.createElement('button');
+                btnDel.textContent = '✕';
+                btnDel.title = 'Xóa loại vàng này';
+                btnDel.className = 'btn-del';
+                btnDel.onclick = function(e) {
+                    e.stopPropagation();
+                    golds.splice(idx, 1);
+                    saveGolds(golds);
+                    renderTable();
+                };
+                tdBan.appendChild(btnDel);
+                tr.appendChild(tdBan);
+                tbody.appendChild(tr);
             });
+            adjustTableFont();
+        }
+        // --- Fullscreen button & floating controls ---
+        let controlsTimeout;
+        function showControls() {
+            document.body.classList.add('show-controls');
+            clearTimeout(controlsTimeout);
+            controlsTimeout = setTimeout(() => {
+                document.body.classList.remove('show-controls');
+            }, 2500);
+        }
+        document.addEventListener('mousemove', showControls);
+        document.addEventListener('touchstart', showControls);
+        // Hiện controls khi load lần đầu
+        showControls();
+        // --- Fullscreen button ---
+        document.addEventListener('DOMContentLoaded', function() {
+            // Fullscreen
+            document.getElementById('fullscreen-btn').onclick = function() {
+                if (document.fullscreenElement) {
+                    document.exitFullscreen();
+                } else {
+                    document.documentElement.requestFullscreen();
+                }
+            };
+            // Add row
+            document.getElementById('add-row-btn').onclick = function() {
+                golds.push({name: 'LOẠI VÀNG MỚI', muavao: '', banra: ''});
+                saveGolds(golds);
+                renderTable();
+            };
+            // Date update
+            function updateDate() {
+                const today = new Date();
+                const dateStr = today.toLocaleDateString('vi-VN');
+                const pad = n => n.toString().padStart(2, '0');
+                const timeStr = pad(today.getHours()) + ':' + pad(today.getMinutes()) + ':' + pad(today.getSeconds());
+                document.getElementById('date-span').textContent = dateStr + ' ' + timeStr;
+            }
+            updateDate();
+            setInterval(updateDate, 1000);
+            // Golds
+            window.golds = loadGolds();
+            renderTable();
         });
+        // --- Responsive font-size for table if too many rows ---
+        function adjustTableFont() {
+            const tbody = document.getElementById('gold-tbody');
+            const nRows = tbody.children.length;
+            // Tính toán font-size và padding dựa trên số dòng và chiều cao khung
+            const container = document.querySelector('.container');
+            const containerHeight = container.offsetHeight;
+            // Giả sử mỗi dòng cần tối thiểu 1.2em chiều cao, tối đa 2.5em
+            let fontSize = Math.min(2.5, Math.max(1.1, (containerHeight / (nRows * 48)) * 1.1));
+            // Padding cũng giảm dần
+            let rowPadding = Math.max(4, Math.min(32, (containerHeight / (nRows * 2.5))));
+            document.getElementById('gold-table').style.fontSize = fontSize + 'em';
+            document.getElementById('gold-table').classList.add('dynamic-table-size');
+            document.getElementById('gold-table').style.setProperty('--row-padding', rowPadding + 'px');
+        }
     </script>
 </body>
 </html> 
