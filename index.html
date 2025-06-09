@@ -393,6 +393,8 @@
             loadShopInfo();
             document.getElementById('shop-title').addEventListener('input', saveShopInfo);
             document.getElementById('shop-address').addEventListener('input', saveShopInfo);
+            // Căn lại footer khi vừa load trang
+            setTimeout(adjustTableFont, 100);
         });
         // --- Responsive font-size for table if too many rows ---
         function adjustTableFont() {
