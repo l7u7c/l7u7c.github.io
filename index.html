@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TIỆM VÀNG KIM TƯƠI</title>
+    <style>
+        html, body, .container {
+            box-sizing: border-box;
+        }
+        html, body {
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+        }
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #b80000 url('4770.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
+            cursor: none; /* Hide mouse cursor for TV */
+        }
+        .container {
+            width: 100vw;
+            height: 100vh;
+            max-width: 100vw;
+            max-height: 100vh;
+            margin: 0;
+            background: transparent;
+            border-radius: 24px;
+            box-shadow: none;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2vh 2vw 2vh 2vw;
+            overflow: hidden;
+        }
+        h1 {
+            text-align: center;
+            font-size: clamp(2.2em, 6vw, 5em);
+            letter-spacing: 0.1em;
+            margin-top: 0.5em;
+            margin-bottom: 0.2em;
+            color: #fffbe7;
+            text-shadow: 2px 2px 8px #a00, 0 0 8px #000;
+        }
+        .update-date {
+            text-align: center;
+            font-style: italic;
+            color: #ffe082;
+            margin-bottom: 1vh;
+            font-size: clamp(1em, 2.5vw, 2em);
+            text-shadow: 1px 1px 6px #a00, 0 0 6px #000;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: clamp(1em, 3vw, 2.5em);
+            background: transparent;
+        }
+        th, td {
+            border: 2px solid #fffbe7;
+            padding: clamp(8px, 2vw, 32px) 0;
+            text-align: center;
+            background: transparent;
+            text-shadow: 1px 1px 6px #a00, 0 0 6px #000;
+        }
+        th {
+            background: transparent;
+            color: #ffe082;
+            font-weight: bold;
+            font-size: clamp(1em, 2vw, 1.5em);
+        }
+        .gold-type {
+            background: transparent;
+            color: #fffbe7;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+        .editable {
+            background: transparent;
+            color: #fffbe7;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .editable:focus {
+            outline: 2px solid #ffe082;
+            background: rgba(255,255,255,0.12);
+            color: #b80000;
+        }
+        .footer {
+            text-align: center;
+            font-size: clamp(1em, 2.5vw, 2em);
+            color: #fffbe7;
+            margin-top: 2vh;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-shadow: 1px 1px 6px #a00, 0 0 6px #000;
+        }
+        @media (max-width: 700px) {
+            h1 { font-size: 2em; }
+            table { font-size: 1em; }
+            .container { max-width: 99vw; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>TIỆM VÀNG KIM TƯƠI</h1>
+        <div class="update-date" id="update-date">Cập nhật vào: <span id="date-span"></span></div>
+        <table>
+            <tr>
+                <th style="width:33%">LOẠI VÀNG<br><span style="font-size:0.7em;font-weight:normal;">ĐVT: VNĐ/chỉ</span></th>
+                <th style="width:33%">MUA VÀO</th>
+                <th style="width:33%">BÁN RA</th>
+            </tr>
+            <tr>
+                <td class="gold-type">NHẪN VÀNG 995</td>
+                <td class="editable" contenteditable="true" data-key="muavao_995"></td>
+                <td class="editable" contenteditable="true" data-key="banra_995"></td>
+            </tr>
+            <tr>
+                <td class="gold-type">NỮ TRANG 990</td>
+                <td class="editable" contenteditable="true" data-key="muavao_990"></td>
+                <td class="editable" contenteditable="true" data-key="banra_990"></td>
+            </tr>
+            <tr>
+                <td class="gold-type">NỮ TRANG 980</td>
+                <td class="editable" contenteditable="true" data-key="muavao_980"></td>
+                <td class="editable" contenteditable="true" data-key="banra_980"></td>
+            </tr>
+            <tr>
+                <td class="gold-type">TRANG SỨC 710</td>
+                <td class="editable" contenteditable="true" data-key="muavao_710"></td>
+                <td class="editable" contenteditable="true" data-key="banra_710"></td>
+            </tr>
+            <tr>
+                <td class="gold-type">TRANG SỨC 610</td>
+                <td class="editable" contenteditable="true" data-key="muavao_610"></td>
+                <td class="editable" contenteditable="true" data-key="banra_610"></td>
+            </tr>
+        </table>
+        <div class="footer">RẤT HÂN HẠNH ĐƯỢC PHỤC VỤ QUÝ KHÁCH</div>
+    </div>
+    <script>
+        // Default prices (as in your image)
+        const defaultPrices = {
+            muavao_995: '10,500,000',
+            banra_995: '10,640,000',
+            muavao_990: '10,400,000',
+            banra_990: '10,640,000',
+            muavao_980: '10,300,000',
+            banra_980: '10,550,000',
+            muavao_710: '7,420,000',
+            banra_710: '7,770,000',
+            muavao_610: '6,350,000',
+            banra_610: '6,750,000',
+        };
+
+        // Load prices from localStorage or use default
+        function loadPrices() {
+            let prices = {};
+            try {
+                prices = JSON.parse(localStorage.getItem('goldPrices')) || {};
+            } catch (e) {}
+            for (const key in defaultPrices) {
+                if (!prices[key]) prices[key] = defaultPrices[key];
+            }
+            return prices;
+        }
+
+        // Save prices to localStorage
+        function savePrices(prices) {
+            localStorage.setItem('goldPrices', JSON.stringify(prices));
+        }
+
+        // Format number with commas
+        function formatNumber(str) {
+            let num = str.replace(/[^\d]/g, '');
+            if (!num) return '';
+            return parseInt(num, 10).toLocaleString('en-US');
+        }
+
+        // Update date in real time
+        function updateDate() {
+            const today = new Date();
+            const dateStr = today.toLocaleDateString('vi-VN');
+            const pad = n => n.toString().padStart(2, '0');
+            const timeStr = pad(today.getHours()) + ':' + pad(today.getMinutes()) + ':' + pad(today.getSeconds());
+            document.getElementById('date-span').textContent = dateStr + ' ' + timeStr;
+        }
+
+        // Set up editable cells
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set update date and keep it synced
+            updateDate();
+            setInterval(updateDate, 1000); // update every second
+
+            let prices = loadPrices();
+            document.querySelectorAll('.editable').forEach(cell => {
+                const key = cell.getAttribute('data-key');
+                cell.textContent = prices[key] || '';
+                cell.addEventListener('input', function() {
+                    // Format as user types
+                    let formatted = formatNumber(cell.textContent);
+                    cell.textContent = formatted;
+                    prices[key] = formatted;
+                    savePrices(prices);
+                    // Move caret to end
+                    let range = document.createRange();
+                    let sel = window.getSelection();
+                    range.selectNodeContents(cell);
+                    range.collapse(false);
+                    sel.removeAllRanges();
+                    sel.addRange(range);
+                });
+                // Prevent line breaks
+                cell.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter') e.preventDefault();
+                });
+            });
+        });
+    </script>
+</body>
+</html> 
