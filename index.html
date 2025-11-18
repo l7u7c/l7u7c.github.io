@@ -71,7 +71,7 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            font-size: clamp(1em, 3vw, 2.5em);
+            font-size: clamp(1.5em, 5vw, 3em); /* Increased font size for the whole table */
             background: transparent;
         }
         th, td {
@@ -102,6 +102,7 @@
             color: #fffbe7;
             cursor: pointer;
             transition: background 0.2s;
+            font-size: clamp(1.5em, 4vw, 3em); /* Increased font size for MUA VÀO and BÁN RA columns */
         }
         .editable:focus {
             outline: 2px solid #ffe082;
@@ -109,10 +110,6 @@
             color: #b80000;
         }
         .footer {
-            /* position: absolute; */
-            /* bottom: 0; */
-            /* left: 0; */
-            /* right: 0; */
             text-align: center;
             font-size: clamp(1em, 2.5vw, 2em);
             color: #fffbe7;
@@ -122,7 +119,6 @@
             letter-spacing: 2px;
             text-shadow: 1px 1px 6px #a00, 0 0 6px #000;
             flex-shrink: 0;
-            /* background: linear-gradient(to bottom, transparent 0%, rgba(184,0,0,0.8) 50%, rgba(184,0,0,0.9) 100%); */
         }
         .floating-controls {
             position: fixed;
@@ -153,7 +149,7 @@
             font-weight: bold;
             box-shadow: 0 2px 8px #0008;
             cursor: pointer;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20'><rect x='2' y='2' width='16' height='16' fill='none' stroke='%23b80000' stroke-width='2'/></svg>');
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'20\' height=\'20\'><rect x=\'2\' y=\'2\' width=\'16\' height=\'16\' fill=\'none\' stroke=\'%23b80000\' stroke-width=\'2\'/></svg>');
             background-repeat: no-repeat;
             background-position: 10px center;
         }
@@ -442,10 +438,4 @@
         }
         function loadShopInfo() {
             const title = localStorage.getItem('shopTitle');
-            const address = localStorage.getItem('shopAddress');
-            if (title) document.getElementById('shop-title').textContent = title;
-            if (address) document.getElementById('shop-address').textContent = address;
-        }
-    </script>
-</body>
-</html>
+            const address
