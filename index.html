@@ -75,20 +75,23 @@
         }
         th, td {
             border: 2px solid #fffbe7;
-            padding: clamp(8px, 1.5vw, 24px) clamp(4px, 1vw, 12px);
+            padding: 0;
             text-align: center;
             background: transparent;
             text-shadow: 2px 2px 8px #a00, 0 0 8px #000;
-            overflow: hidden;
+            overflow: visible;
             white-space: nowrap;
-            text-overflow: ellipsis;
             position: relative;
+            vertical-align: middle;
+            height: 60px;
+            min-height: 60px;
         }
         th {
             background: transparent;
             color: #ffe082;
             font-weight: bold;
             font-size: clamp(1.2em, 2.5vw, 1.8em);
+            padding: clamp(8px, 1.5vw, 20px) 0;
         }
         .gold-type {
             background: transparent;
@@ -97,6 +100,12 @@
             letter-spacing: 1px;
             font-size: 0.9em;
             word-break: break-word;
+            padding: 10px 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            min-height: 60px;
         }
         .editable {
             background: transparent;
@@ -105,15 +114,24 @@
             transition: background 0.2s;
             font-weight: 900;
             font-size: 1.8em;
-            line-height: 1.1;
-            letter-spacing: 1.5em;
+            line-height: 1;
+            letter-spacing: 0.1em;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            min-height: 60px;
+            box-sizing: border-box;
         }
         .editable:focus {
             outline: 3px solid #ffe082;
             background: rgba(255,255,255,0.15);
             color: #b80000;
-            font-size: 1.55em;
-            letter-spacing: 0.03em;
+            font-size: 1.85em;
+            letter-spacing: 0.08em;
         }
         .footer {
             text-align: center;
@@ -180,7 +198,7 @@
         #gold-tbody {
             display: block;
             width: 100%;
-            max-height: calc(100vh - 280px);
+            max-height: calc(100vh - 300px);
             overflow-y: auto;
         }
         #gold-table thead, #gold-table tbody tr {
@@ -221,8 +239,10 @@
             }
         }
         .dynamic-table-size th, .dynamic-table-size td {
-            padding-top: var(--row-padding, 16px);
-            padding-bottom: var(--row-padding, 16px);
+            padding-top: var(--row-padding, 10px);
+            padding-bottom: var(--row-padding, 10px);
+            height: auto;
+            min-height: 50px;
         }
     </style>
 </head>
@@ -415,11 +435,11 @@
                 // Tính toán font-size tối ưu để tất cả dòng vừa trong khung
                 const idealRowHeight = availableHeight / nRows;
                 // Điều chỉnh công thức để vừa màn hình hơn nhưng số vẫn to
-                fontSize = Math.max(1.2, Math.min(2.8, idealRowHeight / 60));
-                rowPadding = Math.max(2, Math.min(24, idealRowHeight / 5));
+                fontSize = Math.max(1.0, Math.min(2.5, idealRowHeight / 70));
+                rowPadding = Math.max(0, Math.min(20, idealRowHeight / 6));
             } else {
-                fontSize = 2.8;
-                rowPadding = 24;
+                fontSize = 2.5;
+                rowPadding = 20;
             }
             
             // Áp dụng kích thước
