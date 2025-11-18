@@ -34,7 +34,6 @@
             flex-direction: column;
             justify-content: flex-start;
             align-items: center;
-            /* overflow: hidden; */
             background: transparent;
             position: relative;
             min-height: 100vh;
@@ -71,15 +70,15 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            font-size: clamp(1em, 3vw, 2.5em);
+            font-size: clamp(1.5em, 4vw, 3.5em);
             background: transparent;
         }
         th, td {
             border: 2px solid #fffbe7;
-            padding: clamp(8px, 2vw, 32px) 0;
+            padding: clamp(10px, 2.5vw, 40px) 0;
             text-align: center;
             background: transparent;
-            text-shadow: 1px 1px 6px #a00, 0 0 6px #000;
+            text-shadow: 2px 2px 8px #a00, 0 0 8px #000;
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
@@ -89,32 +88,31 @@
             background: transparent;
             color: #ffe082;
             font-weight: bold;
-            font-size: clamp(1em, 2vw, 1.5em);
+            font-size: clamp(1.2em, 2.5vw, 1.8em);
         }
         .gold-type {
             background: transparent;
             color: #fffbe7;
             font-weight: bold;
             letter-spacing: 1px;
+            font-size: 1em;
         }
         .editable {
             background: transparent;
             color: #fffbe7;
             cursor: pointer;
             transition: background 0.2s;
-            font-weight: bold;
-            font-size: 1.3em;
+            font-weight: 900;
+            font-size: 1.5em;
+            line-height: 1.2;
         }
         .editable:focus {
-            outline: 2px solid #ffe082;
-            background: rgba(255,255,255,0.12);
+            outline: 3px solid #ffe082;
+            background: rgba(255,255,255,0.15);
             color: #b80000;
+            font-size: 1.6em;
         }
         .footer {
-            /* position: absolute; */
-            /* bottom: 0; */
-            /* left: 0; */
-            /* right: 0; */
             text-align: center;
             font-size: clamp(1em, 2.5vw, 2em);
             color: #fffbe7;
@@ -124,7 +122,6 @@
             letter-spacing: 2px;
             text-shadow: 1px 1px 6px #a00, 0 0 6px #000;
             flex-shrink: 0;
-            /* background: linear-gradient(to bottom, transparent 0%, rgba(184,0,0,0.8) 50%, rgba(184,0,0,0.9) 100%); */
         }
         .floating-controls {
             position: fixed;
@@ -155,7 +152,7 @@
             font-weight: bold;
             box-shadow: 0 2px 8px #0008;
             cursor: pointer;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20'><rect x='2' y='2' width='16' height='16' fill='none' stroke='%23b80000' stroke-width='2'/></svg>');
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><rect x="2" y="2" width="16" height="16" fill="none" stroke="%23b80000" stroke-width="2"/></svg>');
             background-repeat: no-repeat;
             background-position: 10px center;
         }
@@ -174,7 +171,7 @@
             width: 100%;
             border-collapse: collapse;
             background: transparent;
-            font-size: 2em;
+            font-size: 3em;
             transition: font-size 0.2s;
         }
         #gold-tbody {
@@ -196,13 +193,13 @@
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.2s;
-            font-size:1.2em;
-            padding:2px 10px;
-            border-radius:6px;
-            border:none;
-            background:#b80000;
-            color:#fffbe7;
-            cursor:pointer;
+            font-size: 1.2em;
+            padding: 2px 10px;
+            border-radius: 6px;
+            border: none;
+            background: #b80000;
+            color: #fffbe7;
+            cursor: pointer;
         }
         tr:hover .btn-del, tr:focus-within .btn-del {
             opacity: 1;
@@ -210,7 +207,7 @@
         }
         @media (max-width: 700px) {
             h1 { font-size: 2em; }
-            table { font-size: 1em; }
+            table { font-size: 1.2em; }
             .container { max-width: 99vw; }
             #gold-tbody {
                 max-height: calc(100vh - 280px);
@@ -220,7 +217,6 @@
                 margin-bottom: 0.5vh;
             }
         }
-        /* Responsive table font-size and padding based on row count */
         .dynamic-table-size th, .dynamic-table-size td {
             padding-top: var(--row-padding, 16px);
             padding-bottom: var(--row-padding, 16px);
@@ -236,7 +232,7 @@
     </div>
     <div class="container">
         <h1 id="shop-title" contenteditable="true">TIỆM VÀNG KIM TƯƠI</h1>
-        <div id="shop-address" contenteditable="true" style="text-align:center;font-size:clamp(1em,2.5vw,2em);color:#ffe082;font-style:italic;text-shadow:1px 1px 6px #a00,0 0 6px #000;margin-bottom:1vh;">Địa chỉ: Số 392, tổ 10, ấp Lình Huỳnh, Xã Lình Huỳnh, Huyện Hòn Đất, Tỉnh Kiên Giang, Việt Nam</div>
+        <div id="shop-address" contenteditable="true" style="text-align:center;font-size:clamp(1em,2.5vw,2em);color:#ffe082;font-style:italic;text-shadow:1px 1px 6px #a00,0 0 6px #000;margin-bottom:1vh;">Địa chỉ: Số 392, tổ 10, ấp Lĩnh Huỳnh, Xã Lĩnh Huỳnh, Huyện Hòn Đất, Tỉnh Kiên Giang, Việt Nam</div>
         <div class="update-date" id="update-date" style="text-align:right;">Cập nhật vào lúc: <span id="date-span"></span> <span style="font-size:0.8em;font-weight:normal;">(Đơn vị tính: VNĐ/chỉ)</span></div>
         <div class="table-container">
             <table id="gold-table">
@@ -415,11 +411,11 @@
             if (nRows > 0) {
                 // Tính toán font-size tối ưu để tất cả dòng vừa trong khung
                 const idealRowHeight = availableHeight / nRows;
-                fontSize = Math.max(0.5, Math.min(2.5, idealRowHeight / 50)); // 50px là ước tính chiều cao cơ bản của 1 row
-                rowPadding = Math.max(2, Math.min(32, idealRowHeight / 4));
+                fontSize = Math.max(1.8, Math.min(4.5, idealRowHeight / 45)); // Tăng font-size tối thiểu lên 1.8em
+                rowPadding = Math.max(4, Math.min(40, idealRowHeight / 3.5));
             } else {
-                fontSize = 2.5;
-                rowPadding = 32;
+                fontSize = 4.5;
+                rowPadding = 40;
             }
             
             // Áp dụng kích thước
@@ -429,7 +425,7 @@
             
             // Điều chỉnh font-size của footer để phù hợp
             const footer = document.querySelector('.footer');
-            const footerFontSize = Math.max(0.8, Math.min(2, fontSize * 1.2));
+            const footerFontSize = Math.max(1, Math.min(2.5, fontSize * 1.2));
             footer.style.fontSize = footerFontSize + 'em';
         }
         
