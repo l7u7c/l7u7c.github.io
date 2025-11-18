@@ -70,12 +70,12 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            font-size: clamp(1.5em, 4vw, 3.5em);
+            font-size: clamp(1em, 3vw, 2.5em);
             background: transparent;
         }
         th, td {
             border: 2px solid #fffbe7;
-            padding: clamp(10px, 2.5vw, 40px) 0;
+            padding: clamp(8px, 1.5vw, 24px) clamp(4px, 1vw, 12px);
             text-align: center;
             background: transparent;
             text-shadow: 2px 2px 8px #a00, 0 0 8px #000;
@@ -95,7 +95,8 @@
             color: #fffbe7;
             font-weight: bold;
             letter-spacing: 1px;
-            font-size: 1em;
+            font-size: 0.9em;
+            word-break: break-word;
         }
         .editable {
             background: transparent;
@@ -103,14 +104,14 @@
             cursor: pointer;
             transition: background 0.2s;
             font-weight: 900;
-            font-size: 1.5em;
-            line-height: 1.2;
+            font-size: 1.3em;
+            line-height: 1.1;
         }
         .editable:focus {
             outline: 3px solid #ffe082;
             background: rgba(255,255,255,0.15);
             color: #b80000;
-            font-size: 1.6em;
+            font-size: 1.35em;
         }
         .footer {
             text-align: center;
@@ -171,13 +172,13 @@
             width: 100%;
             border-collapse: collapse;
             background: transparent;
-            font-size: 3em;
+            font-size: 2em;
             transition: font-size 0.2s;
         }
         #gold-tbody {
             display: block;
             width: 100%;
-            max-height: calc(100vh - 320px);
+            max-height: calc(100vh - 280px);
             overflow-y: auto;
         }
         #gold-table thead, #gold-table tbody tr {
@@ -207,10 +208,10 @@
         }
         @media (max-width: 700px) {
             h1 { font-size: 2em; }
-            table { font-size: 1.2em; }
+            table { font-size: 1em; }
             .container { max-width: 99vw; }
             #gold-tbody {
-                max-height: calc(100vh - 280px);
+                max-height: calc(100vh - 250px);
             }
             .footer {
                 padding: 1.5vh 0;
@@ -411,11 +412,12 @@
             if (nRows > 0) {
                 // Tính toán font-size tối ưu để tất cả dòng vừa trong khung
                 const idealRowHeight = availableHeight / nRows;
-                fontSize = Math.max(1.8, Math.min(4.5, idealRowHeight / 45)); // Tăng font-size tối thiểu lên 1.8em
-                rowPadding = Math.max(4, Math.min(40, idealRowHeight / 3.5));
+                // Điều chỉnh công thức để vừa màn hình hơn nhưng số vẫn to
+                fontSize = Math.max(1.2, Math.min(2.8, idealRowHeight / 60));
+                rowPadding = Math.max(2, Math.min(24, idealRowHeight / 5));
             } else {
-                fontSize = 4.5;
-                rowPadding = 40;
+                fontSize = 2.8;
+                rowPadding = 24;
             }
             
             // Áp dụng kích thước
@@ -425,7 +427,7 @@
             
             // Điều chỉnh font-size của footer để phù hợp
             const footer = document.querySelector('.footer');
-            const footerFontSize = Math.max(1, Math.min(2.5, fontSize * 1.2));
+            const footerFontSize = Math.max(0.9, Math.min(2, fontSize * 1));
             footer.style.fontSize = footerFontSize + 'em';
         }
         
