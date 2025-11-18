@@ -75,7 +75,7 @@
         }
         th, td {
             border: 2px solid #fffbe7;
-            padding: clamp(8px, 1.5vw, 24px) clamp(4px, 1vw, 12px);
+            padding: clamp(8px, 1.5vw, 24px) 0;
             text-align: center;
             background: transparent;
             text-shadow: 2px 2px 8px #a00, 0 0 8px #000;
@@ -106,14 +106,17 @@
             font-weight: 900;
             font-size: 1.8em;
             line-height: 1.1;
-            letter-spacing: 0.03em;
+            letter-spacing: 0.08em;
+            padding: 0 8px;
+            display: block;
+            width: 100%;
         }
         .editable:focus {
             outline: 3px solid #ffe082;
             background: rgba(255,255,255,0.15);
             color: #b80000;
-            font-size: 1.55em;
-            letter-spacing: 0.03em;
+            font-size: 1.85em;
+            letter-spacing: 0.08em;
         }
         .footer {
             text-align: center;
